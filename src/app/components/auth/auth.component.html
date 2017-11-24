@@ -1,0 +1,75 @@
+<p-growl [(value)]="msg"></p-growl>
+<p-tabView orientation="left" [activeIndex]="index">
+  <p-tabPanel header="Login">
+    <form [formGroup]="loginForm" (ngSubmit)="Login($event)" novalidate>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+            <input type="text" pInputText placeholder="Login" name="login" formControlName="login">
+            <div *ngIf="login_LoginForm.invalid && (login_LoginForm.dirty || login_LoginForm.touched)">
+              <div *ngIf="login_LoginForm.errors.required">
+                Field is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-lock"></i></span>
+            <input type="password" pInputText placeholder="Password" name="password" formControlName="password">
+            <div *ngIf="password_LoginForm.invalid && (password_LoginForm.dirty || password_LoginForm.touched)">
+              <div *ngIf="password_LoginForm.errors.required">
+                Field is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <button pButton type="submit" icon="fa-sign-in" label="Login"></button>
+      </div>
+    </form>
+  </p-tabPanel>
+  <p-tabPanel header="Register">
+    <form [formGroup]="regForm" (ngSubmit)="Reg($event)">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+            <input type="text" pInputText placeholder="Login" name="login" formControlName="login" required>
+            <div *ngIf="login_RegForm.invalid && (login_RegForm.dirty || login_RegForm.touched)">
+              <div *ngIf="login_RegForm.errors.required">
+                Field is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-lock"></i></span>
+            <input type="password" pInputText placeholder="Password" name="password" formControlName="password"
+                   minlength="4" maxlength="8">
+            <div *ngIf="password_RegForm.invalid && (password_RegForm.dirty || password_RegForm.touched)">
+              <div *ngIf="password_RegForm.errors.required">
+                Field is required
+              </div>
+              <div *ngIf="password_RegForm.errors.minlength">
+                Min length this field is 4
+              </div>
+              <div *ngIf="password_RegForm.errors.maxlength">
+                Max length this field is 8
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon"><i class="fa fa-phone"></i></span>
+            <p-inputMask formControlName="phone" mask="9(999)999-9999" styleClass="mask" [unmask]="true"
+                         placeholder="Phone"></p-inputMask>
+          </div>
+        </div>
+        <button pButton type="submit" icon="fa-sign-in" label="Register"></button>
+      </div>
+    </form>
+  </p-tabPanel>
+</p-tabView>

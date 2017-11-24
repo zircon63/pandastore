@@ -1,0 +1,54 @@
+<p-growl [(value)]="msg"></p-growl>
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+        <input type="text" pInputText [(ngModel)]="searchText" placeholder="Search...">
+      </div>
+    </div>
+  </div>
+  <div class="ui-toolbar-group-right">
+    <button pButton type="button" icon="fa-filter" (click)="displayFilter = true"></button>
+  </div>
+</p-toolbar>
+<p-dataGrid [value]="products | filter:filterParams | search:searchText" [paginator]="true" [rows]="8" [immutable]="false">
+  <p-header>
+    Products
+  </p-header>
+  <ng-template let-product pTemplate="item">
+    <div class="ui-g-12 ui-md-3">
+      <p-panel>
+        <p-header>
+          {{product.name}} | {{product.category.label}}
+        </p-header>
+        <p>{{product.desc}}</p>
+        <i class="fa fa-money"></i> {{product.price}}
+        <p-footer>
+          <button pButton type="button" (click)="addToCart(product)" label="Add to Cart" icon="fa-cart-plus">
+          </button>
+        </p-footer>
+      </p-panel>
+    </div>
+  </ng-template>
+</p-dataGrid>
+<p-sidebar [(visible)]="displayFilter" position="right">
+  <h3>Filter</h3>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+      <h3>Price: {{filterParams.rangePrice[0]}} - {{filterParams.rangePrice[1]}}</h3>
+      <p-slider [min]="0" [max]="maxPrice" [(ngModel)]="filterParams.rangePrice" [range]="true"
+                [animate]="true"></p-slider>
+    </div>
+    <div class="ui-g-12">
+      <p-listbox [options]="category" [listStyle]="{'max-height':'350px'}" optionLabel="name" multiple="multiple"
+                 checkbox="checkbox" filter="filter"
+                 [(ngModel)]="filterParams.selectedCategory">
+        <p-header>Category</p-header>
+        <ng-template let-cat pTemplate="item">
+          {{cat.label}}
+        </ng-template>
+      </p-listbox>
+    </div>
+  </div>
+</p-sidebar>

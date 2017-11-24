@@ -1,0 +1,38 @@
+<p-growl [(value)]="msg"></p-growl>
+<p-sidebar [(visible)]="show" [fullScreen]="true" (onHide)="closeCart()">
+  <p-dataList [value]="products" [paginator]="true" [rows]="7" [emptyMessage]="'Cart is Empty!'" [immutable]="false">
+    <p-header>
+      My Cart
+    </p-header>
+    <ng-template let-product pTemplate="item" let-i="index+1">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-1">
+          <li>#{{i}}</li>
+        </div>
+        <div class="ui-g-2">
+          <li>{{product.name}}</li>
+        </div>
+        <div class="ui-g-2">
+          <li>{{product.price}}</li>
+        </div>
+        <div class="ui-g-2">
+          <li>{{product.category.label}}</li>
+        </div>
+        <div class="ui-g-2">
+          <li>
+            <i class="fa fa-minus" (click)="decAmount(product.id)"></i>
+            {{product.amount}}
+            <i class="fa fa-plus" (click)="incAmount(product.id)"></i>
+          </li>
+        </div>
+        <div class="ui-g-2">
+          <button pButton type="button" icon="fa-remove" label="Remove" (click)="deleteFromCart(product.id)"></button>
+        </div>
+      </div>
+    </ng-template>
+    <p-footer *ngIf="!isEmpty">
+      <h3>Total: {{Total}}</h3>
+      <button pButton type="button" icon="fa-check-circle" label="Buy" *ngIf="!isEmpty" (click)="buy()"></button>
+    </p-footer>
+  </p-dataList>
+</p-sidebar>

@@ -1,0 +1,26 @@
+<p-growl [(value)]="msg"></p-growl>
+<button pButton type="button" routerLink="/admin" label="Back to Admin Panel" icon="fa-backward"></button>
+<p-dataTable [value]="categories" selectionMode="single" [(selection)]="selectedCat"
+             (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+  <p-header>Categories</p-header>
+  <p-column field="value" header="ID" [sortable]="true"></p-column>
+  <p-column field="label" header="Name" [sortable]="true"></p-column>
+  <p-footer><div class="ui-helper-clearfix" style="width:100%">
+    <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
+</p-dataTable>
+
+<p-dialog header="Category" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+          [minWidth]="800" [minHeight]="800">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="cat">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Name</label></div>
+      <div class="ui-grid-col-8"><input pInputText id="label" [(ngModel)]="cat.label" /></div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa-close" (click)="delete(cat.value)" label="Delete"></button>
+      <button type="button" pButton icon="fa-check" (click)="save(cat)" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

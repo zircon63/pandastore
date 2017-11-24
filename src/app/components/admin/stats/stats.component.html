@@ -1,0 +1,14 @@
+<p-growl [(value)]="msg"></p-growl>
+<p-sidebar [(visible)]="display" position="right">
+  <p-listbox [options]="category" [(ngModel)]="selectedCat" (onChange)="getProduct($event)"></p-listbox>
+  <p-listbox [options]="products" [(ngModel)]="selectedProducts" *ngIf="products" (onChange)="getStats($event)">
+    <p-header>Products</p-header>
+    <ng-template let-prod pTemplate="item">
+      {{prod.label}}
+    </ng-template>
+  </p-listbox>
+</p-sidebar>
+<button pButton type="button" routerLink="/admin" label="Back to Admin Panel" icon="fa-backward"></button>
+<button type="text" (click)="display = true" pButton icon="fa-external-link-square" label="Show Filter"></button>
+<p-chart type="line" [data]="data" [height]="100"></p-chart>
+<h2>Total Income: {{income}}</h2>

@@ -1,0 +1,46 @@
+<p-growl [(value)]="msg"></p-growl>
+<button pButton type="button" routerLink="/admin" label="Back to Admin Panel" icon="fa-backward"></button>
+<p-dataTable [value]="products" selectionMode="single" [(selection)]="selectedProduct"
+             (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+  <p-header>Products</p-header>
+  <p-column field="id" header="ID" [sortable]="true"></p-column>
+  <p-column field="name" header="Name" [sortable]="true"></p-column>
+  <p-column field="desc" header="Desc" [sortable]="true"></p-column>
+  <p-column field="category.label" header="Category" [sortable]="true"></p-column>
+  <p-column field="price_sale" header="Price sale" [sortable]="true"></p-column>
+  <p-column field="price_buy" header="Price buy" [sortable]="true"></p-column>
+  <p-footer><div class="ui-helper-clearfix" style="width:100%">
+    <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
+</p-dataTable>
+
+<p-dialog header="Product" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+[minWidth]="800" [minHeight]="800">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="product">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Name</label></div>
+      <div class="ui-grid-col-8"><input pInputText id="name" [(ngModel)]="product.name" /></div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Desc</label></div>
+      <div class="ui-grid-col-8"><textarea pInputTextarea [(ngModel)]="product.desc" [rows]="10" [cols]="30"></textarea></div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Category</label></div>
+      <div class="ui-grid-col-8"><p-listbox [options]="category" [(ngModel)]="product.category.value"></p-listbox></div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Price for sale</label></div>
+      <div class="ui-grid-col-8"><input pInputText id="price_sale" [(ngModel)]="product.price_sale" type="number"/></div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Price for buy</label></div>
+      <div class="ui-grid-col-8"><input pInputText id="price_buy" [(ngModel)]="product.price_buy" type="number" /></div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa-close" (click)="delete(product.id)" label="Delete"></button>
+      <button type="button" pButton icon="fa-check" (click)="save(product)" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

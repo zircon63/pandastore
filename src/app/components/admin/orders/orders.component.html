@@ -1,0 +1,33 @@
+<p-growl [(value)]="msg"></p-growl>
+<button pButton type="button" routerLink="/admin" label="Back to Admin Panel" icon="fa-backward"></button>
+<p-dataTable [value]="orders" rowGroupMode="subheader" groupField="id" expandableRowGroups="true"
+             [paginator]="true" rows="15" [responsive]="true">
+  <p-header>Products</p-header>
+  <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['date']}} | {{rowData['status']}}</ng-template>
+  <p-column field="name" header="Name" [sortable]="false"></p-column>
+  <p-column field="amount" header="Amount" [sortable]="false"></p-column>
+  <p-column field="category" header="Category" [sortable]="false"></p-column>
+  <ng-template pTemplate="rowgroupfooter" let-rowData>
+    <td>
+      <button pButton type="button" label="Edit Status" icon="fa-edit" (click)="edit(rowData)"></button>
+      <button pButton type="button" label="Delete" icon="fa-remove" (click)="delete(rowData['id'])"></button>
+    </td>
+    <td colspan="2" style="text-align:right">Total: {{rowData['total']}}</td>
+  </ng-template>
+</p-dataTable>
+
+<p-dialog header="Product" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+          [minWidth]="800" [minHeight]="800">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="order">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Status</label></div>
+      <div class="ui-grid-col-8"><p-selectButton [options]="status" [(ngModel)]="order.status_id"></p-selectButton></div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa-close" (click)="delete(order.id)" label="Delete"></button>
+      <button type="button" pButton icon="fa-check" (click)="save(order)" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

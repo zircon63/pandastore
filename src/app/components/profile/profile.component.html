@@ -1,0 +1,13 @@
+<p-growl [(value)]="msg"></p-growl>
+<p-fieldset legend="Profile">
+  <button pButton type="button" routerLink="/" label="Back to Store" icon="fa-backward"></button>
+    <p-treeTable [value]="orders">
+      <p-header>My Orders</p-header>
+      <p-column field="date" header="Date"></p-column>
+      <p-column field="status" header="Status"></p-column>
+      <p-column field="name" header="Product"></p-column>
+      <p-column field="category" header="Category"></p-column>
+      <p-column field="amount" header="Amount"></p-column>
+      <p-column field="total" header="Total"></p-column>
+    </p-treeTable>
+</p-fieldset>
